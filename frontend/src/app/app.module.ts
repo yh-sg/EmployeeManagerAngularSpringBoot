@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { MainComponent } from './component/main.component';
 import { EmployeeService } from './employee.service';
+import { FormsModule } from '@angular/forms';
 
 const ROUTES = [
   { path: '', component: MainComponent}
@@ -19,7 +20,8 @@ const ROUTES = [
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(ROUTES)
+    RouterModule.forRoot(ROUTES),
+    FormsModule
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]

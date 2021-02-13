@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { EmployeeService } from '../employee.service';
 import { Employee } from '../model';
 
@@ -11,6 +12,7 @@ import { Employee } from '../model';
 export class MainComponent implements OnInit {
 
   public employees: Employee[];
+  public editEmployee: Employee;
 
   constructor(private employeeService: EmployeeService) { }
 
@@ -29,6 +31,31 @@ export class MainComponent implements OnInit {
     );
   }
 
+  public onAddEmployee(addForm: NgForm):void{
+    document.getElementById('add-employee-form').click()
+    this.employeeService.addEmployees(addForm.value).subscribe(
+      (response: Employee) => {
+        console.log(response);
+        this.getEmployees();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    )
+  }
+
+  public updateEmployee(employee: Employee):void{
+    this.employeeService.addEmployees(employee).subscribe(
+      (response: Employee) => {
+        console.log(response);
+        this.getEmployees();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message)
+      }
+    )
+  }
+
   public openModal(employee: Employee, mode: string):void {
     const container = document.getElementById("main-container");
     //From bootstrap modal live demo button!
@@ -40,8 +67,10 @@ export class MainComponent implements OnInit {
     if(mode==='add')
       button.setAttribute('data-target', '#addEmployeeModal')
 
-    if(mode==='update')
+    if(mode==='update'){
+      this.editEmployee = employee
       button.setAttribute('data-target', '#updateEmployeeModal')
+    }
       
     if(mode==='delete')
       button.setAttribute('data-target', '#deleteEmployeeModal')
