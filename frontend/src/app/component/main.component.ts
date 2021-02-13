@@ -71,6 +71,23 @@ export class MainComponent implements OnInit {
     )
   }
 
+  public searchEmployees(key: string): void{
+    console.log(key);
+    const results: Employee[] = [];
+    this.employees.forEach(employee => {
+      if(employee.name.toLowerCase().indexOf(key.toLowerCase())!==-1
+      ||employee.email.toLowerCase().indexOf(key.toLowerCase())!==-1
+      ||employee.phone.toLowerCase().indexOf(key.toLowerCase())!==-1
+      ||employee.jobTitle.toLowerCase().indexOf(key.toLowerCase())!==-1){
+        results.push(employee);
+      }
+    });
+    this.employees = results;
+    if(results.length === 0 || !key){
+      this.getEmployees();
+    } 
+  }
+
   public openModal(employee: Employee, mode: string):void {
     const container = document.getElementById("main-container");
     //From bootstrap modal live demo button!
@@ -92,7 +109,6 @@ export class MainComponent implements OnInit {
       button.setAttribute('data-target', '#deleteEmployeeModal')
 
     }
-
       container.appendChild(button);
       button.click();
   }
