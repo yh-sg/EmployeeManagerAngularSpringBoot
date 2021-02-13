@@ -7,5 +7,5 @@ import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties
 @Configuration
 @EnableEncryptableProperties
 public class MyApplication {
-
+	
 }
